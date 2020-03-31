@@ -13,3 +13,9 @@ The aim for this project is to make something useful with the SpeechRecognition 
 * `$ venv/bin/pip3 install -r requirements.txt`
 * Activate Virtual Environment
 * `$ source venv/bin/activate`
+
+## Running The Application
+#### Note: This is subject to change
+* Assuming correct set up and activation of environment
+* In root directory, type:
+* `$ python main.py`
