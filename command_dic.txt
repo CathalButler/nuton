@@ -1,0 +1,8 @@
+capture_mic microphone
+process_audio_file processan audio file
+kate kate
+code visual studio code
+google-chrome-stable chrome
+dolphin dolphin
+console  konsole
+cathal cathal
