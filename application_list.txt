@@ -1,0 +1,5 @@
+kate kate
+code visual studio code
+google-chrome-stable chrome
+dolphin dolphin
+console  konsole
