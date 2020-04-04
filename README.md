@@ -24,7 +24,7 @@ The aim for this project is to make something useful with the SpeechRecognition 
 #### Note: This is subject to change
 * Assuming correct set up and activation of environment
 * In root directory, type:
-* `$ python main.py`
+* `python main.py`
 
 ### Development & Testing
 This project was developed and tested on
