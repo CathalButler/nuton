@@ -3,8 +3,6 @@
 # https://realpython.com/python-speech-recognition/ -- tutorial 0
 # https://cmusphinx.github.io/wiki/tutorial/ -- Tutorial 1
 # https://github.com/Uberi/speech_recognition/blob/master/reference/library-reference.rst -- Docs
-# https://cmusphinx.github.io/ -- CMUSphinx
-# https://pypi.org/project/pocketsphinx/ -- Pocket Sphinx
 # https://stackoverflow.com/questions/31603555/unknown-pcm-cards-pcm-rear-pyaudio -- Fix for PCM card error
 import speech_recognition as sr
 import os

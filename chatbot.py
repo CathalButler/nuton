@@ -63,9 +63,9 @@ while True:
             audio = recognizer.listen(source)
             result = recognizer_function(audio)
             print('You said: ', result)
-            responce = bot.get_response(result)
+            response = bot.get_response(result)
 
-            speak(responce)
+            speak(response)
 
     except sr.UnknownValueError:
         speak('I am sorry, I could not understand that.')
