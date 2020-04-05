@@ -28,9 +28,10 @@ class ApplicationAdapter(LogicAdapter):
             return False
 
     # TODO - This function acts very weird, may cause issues later so I am marking it with this todo
-    def process(self, statement, **kwargs):
+    def process(self, statement, additional_response_selection_parameters):
         """
         :param statement: input from user
+        :param additional_response_selection_parameters
         Function to process request
         """
 
@@ -47,21 +48,26 @@ class ApplicationAdapter(LogicAdapter):
         results = read_command_file()  # Read file
         final = query_dictionary(results, temp[-1])  # query
 
-        result = exec_command(final)
-        msg_statement = Statement("Application has been opened")
-        error_statement = Statement("Error")
-
-        if result is not "Error":
+        if final is None:
+            msg_statement = Statement(text="Error processing request")
+            msg_statement.confidence = 0
             return msg_statement
         else:
-            return error_statement
+            msg_statement = Statement("Application has been opened")
+            msg_statement.confidence = 1
+            if exec_command(final):
+                return msg_statement
+            else:
+                msg_statement = Statement("Error opening application")
+                msg_statement.confidence = 0
+                return msg_statement
 
 
 def exec_command(command):
     print(command)
     try:
         subprocess.Popen(command)
-        return
+        return True
     except subprocess.CalledProcessError as error:
         print('Subprocess error: ', error)
-        return error
+        return False

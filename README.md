@@ -7,21 +7,24 @@
 you and this is an opportunity to combine a lot of technology that you have worked with over the
 past four years*
 
-### About Project
+### The Project
 This project was initially meant to be a Kinect game but was changed due to hardware limitations after the outbreak of COVID-19.
-The aim for this project is to make something useful with the SpeechRecognition libraries available in python.
+The aim for this project is to make something based around gesture based UI, after carrying out some research it was decided that a
+personal voice assistant is what the project was going to be based on using 
+   * [Chatterbot](https://chatterbot.readthedocs.io/en/stable/) | Machine Learning, conversational dialog engine.
+   * [Speech Recognition](https://pypi.org/project/SpeechRecognition/) | Speech Recognition engine using the Google API
+   * [Festival](http://www.cstr.ed.ac.uk/projects/festival/) | Multi-lingual text-to-speech package
 
-## Environment Setup -- Linux (Using Python 3.7 | Pip Virtual Environment)
-* Download requirements.txt
+### Environment Setup -- Linux
+* Download [requirements.txt](/requirements.txt)
 * Create Virtual Environment
 * `python3 -m venv venv`
-* Populate virtual environment with pip packages
-* `venv/bin/pip3 install -r requirements.txt`
 * Activate Virtual Environment
 * `source venv/bin/activate`
+* Pip install packages
+* `pip install -r requirements.txt`
 
-## Running The Application
-#### Note: This is subject to change
+### Running The Application
 * Assuming correct set up and activation of environment
 * In root directory, type:
 * `python main.py`
@@ -32,5 +35,14 @@ This project was developed and tested on
 * Python 3.8.2
 * [PyCharm 2019.3.4 (Professional Edition)](https://www.jetbrains.com/pycharm/)
   - Build #PY-193.6911.25, built on March 18, 2020
+  
+### References
+ * https://chatterbot.readthedocs.io/en/stable/index.html
+ * https://github.com/Uberi/speech_recognition#readme
+ * http://www.cstr.ed.ac.uk/projects/festival/
+ * https://realpython.com/python-speech-recognition/
+ * https://cmusphinx.github.io/wiki/tutorial/
+ * https://github.com/Uberi/speech_recognition/blob/master/reference/library-reference.rst
+ * https://stackoverflow.com/questions/31603555/unknown-pcm-cards-pcm-rear-pyaudio -- Fix for PCM card error
  
 

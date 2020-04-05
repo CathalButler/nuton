@@ -30,7 +30,7 @@ PyPrind==2.11.2
 pySmartDL==1.3.3
 python-dateutil==2.7.5
 pytz==2019.3
-PyYAML==3.13
+PyYAML==5.1.2
 requests==2.23.0
 six==1.14.0
 soupsieve==2.0
