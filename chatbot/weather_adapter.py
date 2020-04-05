@@ -19,7 +19,7 @@ class WeatherAdapter(LogicAdapter):
         Return true if the input statement contains
         what is listed in the 'words' array below
         """
-        # words = ['what', 'temperature', 'is' 'it' 'in']
+        # sentences = ['what temperature is it in', 'Whats the weather like in', '' 'it' 'in']
         if statement.text.startswith('what temperature is it in'):
             print(True)
             return True

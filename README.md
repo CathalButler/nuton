@@ -14,8 +14,18 @@ personal voice assistant is what the project was going to be based on using
    * [Chatterbot](https://chatterbot.readthedocs.io/en/stable/) | Machine Learning, conversational dialog engine.
    * [Speech Recognition](https://pypi.org/project/SpeechRecognition/) | Speech Recognition engine using the Google API
    * [Festival](http://www.cstr.ed.ac.uk/projects/festival/) | Multi-lingual text-to-speech package
+### Nuton
+Nuton, is your personal bot that will interpret voice commands you issue it. It does this with the help of the package 
+listed above. Nuton uses the the Chatterbot package to build and train itself, it then ties in with the speech recognition
+to interpret a command from a user with the aid of the google recognition API and that command is then process using the 
+Chatterbot dataset and custom logic adapters designed to allow operations like opening applications and querying the weather
+
+![](uploads/nuton.png)
+
 
 ### Environment Setup -- Linux
+* Note: [Festival](http://www.cstr.ed.ac.uk/projects/festival/) may need to be manully install if it is not already
+installed with your OS 
 * Download [requirements.txt](/requirements.txt)
 * Create Virtual Environment
 * `python3 -m venv venv`

@@ -19,10 +19,11 @@ class ApplicationAdapter(LogicAdapter):
     def can_process(self, statement):
         """
         :param statement: A statement, that closely matches an input to the chat bot.
-        Return true if the input statment contains
-        'open' 'an' 'application'
+        Return true if the input statement contains any of the words listed in the array
+        below
         """
-        if statement.text.startswith('open'):
+        words = ['open', 'launch', 'run']
+        if any(x in statement.text.split() for x in words):
             return True
         else:
             return False
