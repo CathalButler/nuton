@@ -2,11 +2,12 @@ import platform
 import subprocess
 import speech_recognition as sr
 from chatterbot import ChatBot
-from chatterbot.trainers import ListTrainer
+from chatterbot.conversation import Statement
+from chatterbot.trainers import ListTrainer, ChatterBotCorpusTrainer
 
-# import logging
-#
-# logging.basicConfig(level=logging.INFO)
+import logging
+
+logging.basicConfig(level=logging.ERROR)
 
 """
 :Authors - Cathal Butler | Morgan Reilly
@@ -19,17 +20,26 @@ http://www.cstr.ed.ac.uk/projects/festival/
 
 bot = ChatBot(
     'Nuton',
+    storage_adapter='chatterbot.storage.SQLStorageAdapter',
     logic_adapters=[
         {
-            'import_path': 'application_adapter.ApplicationAdapter'
+            'import_path': 'weather_adapter.WeatherAdapter'
+        },
+        {
+            'import_path': 'application_adapter.ApplicationAdapter',
         }
+        # '"chatterbot.logic.MathematicalEvaluation",
+        # 'chatterbot.logic.TimeLogicAdapter'
+        # 'import_path': 'application_adapter.ApplicationAdapter',
+
     ],
 )
 
 # Train the chat bot with the entire english corpus
 # trainer.train('chatterbot.corpus.english')
-trainer = ListTrainer(bot)  # Train bot on list data
-trainer.train(['open'])
+trainer = ChatterBotCorpusTrainer(bot)  # Train bot on list data
+trainer.train("chatterbot.corpus.english.greetings",
+              "chatterbot.corpus.english.conversations")
 
 
 def speak(text):
@@ -60,10 +70,11 @@ while True:
             recognizer.adjust_for_ambient_noise(source)
             recognizer_function = getattr(recognizer, 'recognize_google')
 
-            audio = recognizer.listen(source)
-            result = recognizer_function(audio)
-            print('You said: ', result)
-            response = bot.get_response(result)
+            # audio = recognizer.listen(source)
+            # result = recognizer_function(audio)
+            # print('You said: ', result)
+            # msg_statement = Statement(text="open chrome")
+            response = bot.get_response("what temperature is it in Galway")
 
             speak(response)
 
