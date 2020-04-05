@@ -1,11 +1,10 @@
+import logging
 import platform
 import subprocess
+
 import speech_recognition as sr
 from chatterbot import ChatBot
-from chatterbot.conversation import Statement
-from chatterbot.trainers import ListTrainer, ChatterBotCorpusTrainer
-
-import logging
+from chatterbot.trainers import ChatterBotCorpusTrainer
 
 logging.basicConfig(level=logging.ERROR)
 
@@ -19,19 +18,34 @@ http://www.cstr.ed.ac.uk/projects/festival/
 """
 
 bot = ChatBot(
-    'Nuton',
-    storage_adapter='chatterbot.storage.SQLStorageAdapter',
+    'Nuton',  # Bot name
+    storage_adapter='chatterbot.storage.SQLStorageAdapter',  # Storage config
     logic_adapters=[
         {
-            'import_path': 'weather_adapter.WeatherAdapter'
+            # Custom logic adapter for weather requests
+            'import_path': 'weather_adapter.WeatherAdapter',
+            'default_response': 'I am sorry, but I do not understand.'
         },
         {
+            # Custom logic adapter for opening applications
             'import_path': 'application_adapter.ApplicationAdapter',
-        }
-        # '"chatterbot.logic.MathematicalEvaluation",
-        # 'chatterbot.logic.TimeLogicAdapter'
-        # 'import_path': 'application_adapter.ApplicationAdapter',
+            'default_response': 'I am sorry, but I do not understand.'
 
+        },
+        {
+            # Custom logic adapter for opening applications
+            'import_path': 'helper_adapter.HelperAdapter',
+            'default_response': 'I am sorry, but I do not understand.'
+        },
+        {
+            # Imported Time logic adapter
+            'import_path': 'chatterbot.logic.TimeLogicAdapter',
+            # 'positive': 'time_positive',
+            # 'negative': 'time_negative'
+        },
+        {
+            'import_path': "chatterbot.logic.MathematicalEvaluation",
+        }
     ],
 )
 
@@ -61,8 +75,8 @@ def speak(text):
 # Instances of speech Recognition
 recognizer = sr.Recognizer()
 
-# First question from bot using text to speech
-speak('What would you like to do?')
+# First question from bot using text to speech)
+speak('Hi I am Nuton, What can I assist you with?')
 
 while True:
     try:
@@ -74,7 +88,14 @@ while True:
             # result = recognizer_function(audio)
             # print('You said: ', result)
             # msg_statement = Statement(text="open chrome")
-            response = bot.get_response("what temperature is it in Galway")
+
+            """
+            Supported questions so far:
+                1. Maths : 'What is four plus four?'
+                2. Lunch Application: 'open chrome' - this will do a look up in the applications list(hardcode atm)
+                3. Weather: 'what temperature is it in Galway' - Maybe add onto this this
+            """
+            response = bot.get_response("What can you do")  # Hardcoded text for testing, not using mic
 
             speak(response)
 
@@ -84,5 +105,4 @@ while True:
         message = 'My speech recognition service has failed. {0}'
         speak(message.format(e))
     except (KeyboardInterrupt, EOFError, SystemExit):
-        print('end')
         break

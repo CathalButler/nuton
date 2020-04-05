@@ -67,10 +67,7 @@ def main():
     # Use Microphone
     mic = sr.Microphone()
 
-    # Heading
-    print('===================================================='
-          '\n========== Application Speech Command =============='
-          '\n====================================================\n')
+
     # Options
     print('Please say what option you would like to use:\n1: Command from microphone\n2:Process an audio file'
           '(Please only submit .wav files\n)')

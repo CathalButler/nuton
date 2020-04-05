@@ -10,7 +10,7 @@ past four years*
 ### The Project
 This project was initially meant to be a Kinect game but was changed due to hardware limitations after the outbreak of COVID-19.
 The aim for this project is to make something based around gesture based UI, after carrying out some research it was decided that a
-personal voice assistant is what the project was going to be based on. Using 
+personal voice assistant is what the project was going to be based on using 
    * [Chatterbot](https://chatterbot.readthedocs.io/en/stable/) | Machine Learning, conversational dialog engine.
    * [Speech Recognition](https://pypi.org/project/SpeechRecognition/) | Speech Recognition engine using the Google API
    * [Festival](http://www.cstr.ed.ac.uk/projects/festival/) | Multi-lingual text-to-speech package
