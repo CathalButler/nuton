@@ -1,0 +1,8 @@
+capture_mic microphone
+process_audio_file processan audio file
+kate/usr/bin/kate
+code /usr/bin/code
+chrome /usr/bin/google-chrome-stable
+dolphin /usr/bin/dolphin
+console /usr/bin/konsole
+firefox /usr/bin/firefox

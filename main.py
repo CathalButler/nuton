@@ -1,4 +1,4 @@
-# Cathal Butler & Morgan Reilly | Gesture Based UI Project - 2020
+# Cathal Butler & Morgan Reilly | Gesture Based desktop_app Project - 2020
 
 # https://realpython.com/python-speech-recognition/ -- tutorial 0
 # https://cmusphinx.github.io/wiki/tutorial/ -- Tutorial 1
@@ -54,55 +54,12 @@ def capture_from_mic(recogniser, mic_input):
         print(f'ERROR: Could not recognise audio\nPlease check input and try again...\n{e}')
 
 
-def read_command_file():
-    print('Reading file...')
-    command_file_path = 'command_dic.txt'
-    dic = {}
-
-    # Get k and val from file:
-    if os.path.exists(command_file_path):
-        with open(command_file_path, 'r') as f:
-            try:
-                for line in f:
-                    data = line.split()
-                    if len(data) == 2:
-                        key, value = data[0], data[1]
-                        dic[key] = value
-
-                print(dic)
-                return dic
-            except:
-                print('Error processing file')
-
-
-# Function that loops though commands_dictionary
-# to find a match to the query
-# Functions returns the key which is the command
-def query_dictionary(commands_dictionary, query):
-    print(commands_dictionary)
-
-    # Read key and value from dic
-    for k, val in commands_dictionary.items():
-        if query.lower() == val:
-            print('print value', k)
-            return k  # return command
-
-
-def exec_command(command):
-    try:
-        subprocess.Popen(command)
-        # TODO - Tidy this up and have it run a menu to give user more options not just re-run main()
-        return
-    except subprocess.CalledProcessError as error:
-        print('Subprocess error: ', error)
-
-
 def main():
     # Import the Speech Recogniser
     recogniser = sr.Recognizer()
 
     # Read in application names
-    commands_dictionary = read_command_file()
+    # commands_dictionary = read_command_file()
 
     # Import Audio File
     # TODO - Testing files
@@ -121,19 +78,19 @@ def main():
           '(Please only submit .wav files\n)')
 
     processed_input = capture_from_mic(recogniser, mic)
-    result = query_dictionary(commands_dictionary, processed_input)
-
-    if result == "capture_mic":
-        print('Please say the name of the application you wish to run\n')
-        request = capture_from_mic(recogniser, mic)
-        result = query_dictionary(commands_dictionary, request)
-        exec_command(result)  # execute command
-
-    elif result == "process_audio_file":
-        print('Please in the console specify a file path that is .wav format to be processed')
-        # TODO: Testing the file path is working when it is passed as a str
-        file_path = input()
-        request = process_audio_file(recogniser, file_path, 0, 0, 1, False)  # Using decent, standard audio clip
+    # result = query_dictionary(commands_dictionary, processed_input)
+    #
+    # if result == "capture_mic":
+    #     print('Please say the name of the application you wish to run\n')
+    #     request = capture_from_mic(recogniser, mic)
+    #     result = query_dictionary(commands_dictionary, request)
+    #     exec_command(result)  # execute command
+    #
+    # elif result == "process_audio_file":
+    #     print('Please in the console specify a file path that is .wav format to be processed')
+    #     # TODO: Testing the file path is working when it is passed as a str
+    #     file_path = input()
+    #     request = process_audio_file(recogniser, file_path, 0, 0, 1, False)  # Using decent, standard audio clip
 
 
 # process_audio_file(harvard, 0, 0, 1, False)  # Using decent, standard audio clip
