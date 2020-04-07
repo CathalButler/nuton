@@ -24,8 +24,8 @@ Chatterbot dataset and custom logic adapters designed to allow operations like o
 
 
 ### Environment Setup -- Linux
-* Note: [Festival](http://www.cstr.ed.ac.uk/projects/festival/) may need to be manully install if it is not already
-installed with your OS 
+* Note: [Festival](http://www.cstr.ed.ac.uk/projects/festival/) may need to be manully installed if it is not already
+installed with your OS, this can be done through your package manager (apt, pacman, yum ...)
 * Download [requirements.txt](/requirements.txt)
 * Create Virtual Environment
 * `python3 -m venv venv`
@@ -33,6 +33,12 @@ installed with your OS
 * `source venv/bin/activate`
 * Pip install packages
 * `pip install -r requirements.txt`
+
+### Festival Setup -- Ubuntu
+* `$ sudo apt-get install festival && sudo apt-get install festival-dev && sudo apt-get install festlex-poslex && sudo apt-get install festlex-cmu`
+* If correctly installed, test by running:
+* `$ echo "hello world" | festival --tts`  A voice should read out "Hello world"
+* In my case I was missing the voices directory, this should [help with missing voices](https://ubuntuforums.org/showthread.php?t=677277)
 
 ### Running The Application
 * Assuming correct set up and activation of environment

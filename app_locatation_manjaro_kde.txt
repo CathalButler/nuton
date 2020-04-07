@@ -6,3 +6,8 @@ chrome /usr/bin/google-chrome-stable
 dolphin /usr/bin/dolphin
 console /usr/bin/konsole
 firefox /usr/bin/firefox
+nautilus /usr/bin/nautilus
+vi /usr/bin/vi
+vim /usr/bin/vim
+spotify /usr/bin/spotify
+xterm /usr/bin/xterm

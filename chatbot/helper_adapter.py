@@ -44,9 +44,9 @@ class HelperAdapter(LogicAdapter):
         #     response_statement.confidence = confidence
         #     return response_statement
         # else:
-        response_statement = Statement(text='I Nuton can tell you the weather in any city you wish, I can open an'
-                                            'application for you, I can tell you the time and I can also do maths but '
-                                            'thats obvious I am a computer')
+        response_statement = Statement(
+            text='Hey! My name is Nuton! I can give you the weather for any location,'
+                 ' I can open applications for you, along with more help!')
         confidence = 1
         response_statement.confidence = confidence
         return response_statement
