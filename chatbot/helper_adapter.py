@@ -34,18 +34,19 @@ class HelperAdapter(LogicAdapter):
         """
         from chatterbot.conversation import Statement
 
-        if input_statement.text.find('display examples'):
-            response_statement = Statement(text='1. Maths : What is four plus four? '
-                                                '2. Lunch Application: open chrome - this will do a look up '
-                                                'in the applications list(hardcoded atm) '
-                                                '3. Weather: what temperature is it in Galway - Maybe add onto this ')
-            confidence = 1
-            response_statement.confidence = confidence
-            return response_statement
-        else:
-            response_statement = Statement(text='I Nuton can tell you the weather in any city you wish, I can open an'
-                                                'application for you, I can tell you the time and I can also do maths but '
-                                                'thats obvious I am a computer')
-            confidence = 1
-            response_statement.confidence = confidence
-            return response_statement
+        # if input_statement.find('display examples'):
+        #     response_statement = Statement(text='1. Maths : What is four plus four? '
+        #                                         '2. Lunch Application: open chrome - this will do a look up '
+        #                                         'in the applications list(hardcoded atm) '
+        #                                         '3. Weather: what temperature is it in Galway - Maybe add onto this '
+        #                                         'this')
+        #     confidence = 1
+        #     response_statement.confidence = confidence
+        #     return response_statement
+        # else:
+        response_statement = Statement(
+            text='Hey! My name is Nuton! I can give you the weather for any location,'
+                 ' I can open applications for you, along with more help!')
+        confidence = 1
+        response_statement.confidence = confidence
+        return response_statement

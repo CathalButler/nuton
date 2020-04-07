@@ -18,6 +18,10 @@ https://github.com/Uberi/speech_recognition#readme
 http://www.cstr.ed.ac.uk/projects/festival/
 """
 
+"""
+Time positive / Time negative: 
+Training Data for Nuton to understand
+"""
 time_positive = ['what is the time right now', 'what is the current time', 'what is the time now', 'what’s the time',
                  'what time is it',
                  'what time is it now', 'do you know what time it is', 'could you tell me the time, please',
@@ -30,6 +34,11 @@ time_negative = ['what are you doing', 'what’s up', 'could you', 'do you', 'wh
                  'will', 'show', 'tell', 'me', 'could', 'what', 'whats', 'i have time', 'who', 'who is', 'hardtime',
                  'when is time', 'how is time', 'who is time']
 
+"""
+Initialise a new ChatBot
+Storage adapters provide an interface which allow Nuton to connect to data store
+Logic adapters determine the logic for how Nuton selects a response to an input statement
+"""
 bot = ChatBot(
     'Nuton',  # Bot name
     storage_adapter='chatterbot.storage.SQLStorageAdapter',  # Storage config
@@ -43,6 +52,7 @@ bot = ChatBot(
             # Custom logic adapter for opening applications
             'import_path': 'application_adapter.ApplicationAdapter',
             'default_response': 'I am sorry, but I do not understand.'
+
         },
         {
             # Custom logic adapter for opening applications
@@ -61,11 +71,17 @@ bot = ChatBot(
     ],
 )  # End bot
 
-# Train the chat bot with the entire english corpus
+"""
+Bot Training
+Train the chat bot with the entire english corpus
+"""
 # trainer.train('chatterbot.corpus.english')
 trainer = ChatterBotCorpusTrainer(bot)  # Train bot on list data
 trainer.train("chatterbot.corpus.english.greetings",
               "chatterbot.corpus.english.conversations")
+
+"""Instance of speech Recognition"""
+recognizer = sr.Recognizer()
 
 
 def nuton_speak(text):
@@ -86,41 +102,46 @@ def nuton_speak(text):
             shell=True)
 
 
-# Instances of speech Recognition
-recognizer = sr.Recognizer()
+def display_header():
+    # Heading
+    print('===================================================='
+          '\n========== Nuton, Personal Assistant ==============='
+          '\n====================================================\n')
 
-# Heading
-print('===================================================='
-      '\n========== Nuton, Personal Assistant ==============='
-      '\n====================================================\n')
 
-# First question from bot using text to speech)
-nuton_speak('Hi I am Nuton, What can I assist you with?')
+def main():
+    display_header()
+    # First question from bot using text to speech)
+    # nuton_speak('Hi I am Nuton, What can I assist you with?')
 
-while True:
-    try:
-        with sr.Microphone() as source:
-            recognizer.adjust_for_ambient_noise(source)
-            recognizer_function = getattr(recognizer, 'recognize_google')
+    while True:
+        try:
+            with sr.Microphone() as source:
+                recognizer.adjust_for_ambient_noise(source)
+                recognizer_function = getattr(recognizer, 'recognize_google')
 
-            # audio = recognizer.listen(source)
-            # result = recognizer_function(audio)
-            # print('You said: ', result)
-            # msg_statement = Statement(text="open chrome")
+                # audio = recognizer.listen(source)
+                # result = recognizer_function(audio)
+                # print('You said: ', result)
+                # msg_statement = Statement(text="open chrome")
 
-            """
-            Supported questions so far:
-                1. Maths : 'What is four plus four?'
-                2. Lunch Application: 'open chrome' - this will do a look up in the applications list(hardcoded atm)
-                3. Weather: 'what temperature is it in Galway' - Maybe add onto this this
-            """
-            response = bot.get_response("help")  # Hardcoded text for testing, not using mic
-            nuton_speak(response)
+                """
+                Supported questions so far:
+                    1. Maths : 'What is four plus four?'
+                    2. Lunch Application: 'open chrome' - this will do a look up in the applications list(hardcoded atm)
+                    3. Weather: 'what temperature is it in Galway' - Maybe add onto this this
+                """
+                response = bot.get_response("what can you do")  # Hardcoded text for testing, not using mic
+                nuton_speak(response)
 
-    except sr.UnknownValueError:
-        nuton_speak('I am sorry, I could not understand that.')
-    except sr.Recognizer as e:
-        message = 'My speech recognition service has failed. {0}'
-        nuton_speak(message.format(e))
-    except (KeyboardInterrupt, EOFError, SystemExit):
-        break
+        except sr.UnknownValueError:
+            nuton_speak('I am sorry, I could not understand that.')
+        except sr.Recognizer as e:
+            message = 'My speech recognition service has failed. {0}'
+            nuton_speak(message.format(e))
+        except (KeyboardInterrupt, EOFError, SystemExit):
+            break
+
+
+if __name__ == "__main__":
+    main()
