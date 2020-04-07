@@ -14,13 +14,34 @@ personal voice assistant is what the project was going to be based on using
    * [Chatterbot](https://chatterbot.readthedocs.io/en/stable/) | Machine Learning, conversational dialog engine.
    * [Speech Recognition](https://pypi.org/project/SpeechRecognition/) | Speech Recognition engine using the Google API
    * [Festival](http://www.cstr.ed.ac.uk/projects/festival/) | Multi-lingual text-to-speech package
-### Nuton
-Nuton, is your personal bot that will interpret voice commands you issue it. It does this with the help of the package 
-listed above. Nuton uses the the Chatterbot package to build and train itself, it then ties in with the speech recognition
+  
+### What is Nuton
+Nuton is your bot that will interpret voice commands you issue it. It does this with the help of the package 
+listed above. Nuton uses the Chatterbot package to build and train itself, it then ties in with the speech recognition
 to interpret a command from a user with the aid of the google recognition API and that command is then process using the 
-Chatterbot dataset and custom logic adapters designed to allow operations like opening applications and querying the weather
+Chatterbot dataset and custom logic adapters designed to allow operations like opening applications, querying the weather 
+and so on.
+
+### Architecture
 
 ![](uploads/nuton.png)
+
+* ###How Nuton Works
+    * Nuton is created and trained using [Chatterbot](https://chatterbot.readthedocs.io/en/stable/) a Python machine learning, 
+    conversational dialog engine. A Chatterbot starts off with no knowledge of how to communicate but with the help
+    of user input, corpus data and logic adapters, the bot can learn and return the correct response to the users input.
+    
+        ![](uploads/nutons_process_flow.png)
+        
+* ###Training
+    *  Chatterbot has a lot of corpus data files you can use to train the bot or you can specify your own one. In Nutons case
+    the English corpus was used for training as well as some custom coupes data that works better with custom logic adapters
+  
+* ###Gesture Implementation With Hardware
+    *  As the project statement states, *develop an application with natural user interacting* this was done by 
+    implementing a microphone into the program to record the user's voice. With the help of the Python Speech Recognition 
+    engine, it analyzes the audio and return the result as text. The text result would then be passed onto the Chatterbot 
+    to process it and return its result.
 
 
 ### Environment Setup -- Linux

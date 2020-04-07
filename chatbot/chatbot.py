@@ -43,7 +43,6 @@ bot = ChatBot(
             # Custom logic adapter for opening applications
             'import_path': 'application_adapter.ApplicationAdapter',
             'default_response': 'I am sorry, but I do not understand.'
-
         },
         {
             # Custom logic adapter for opening applications
@@ -60,7 +59,7 @@ bot = ChatBot(
             'import_path': "chatterbot.logic.MathematicalEvaluation",
         }
     ],
-)# End bot
+)  # End bot
 
 # Train the chat bot with the entire english corpus
 # trainer.train('chatterbot.corpus.english')
@@ -115,7 +114,7 @@ while True:
                 2. Lunch Application: 'open chrome' - this will do a look up in the applications list(hardcoded atm)
                 3. Weather: 'what temperature is it in Galway' - Maybe add onto this this
             """
-            response = bot.get_response("what can you do")  # Hardcoded text for testing, not using mic
+            response = bot.get_response("help")  # Hardcoded text for testing, not using mic
             nuton_speak(response)
 
     except sr.UnknownValueError:
