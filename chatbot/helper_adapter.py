@@ -17,9 +17,10 @@ class HelperAdapter(LogicAdapter):
     def can_process(self, statement):
         """
         Return true if the input statement contains
-        what is listed in the 'words' array below
+        what is listed in the int he queries array
         """
-        if statement.text.startswith('What can you do'):
+        queries = ['what can you do', 'help', 'display examples']
+        if any(x in statement.text for x in queries):
             print(True)
             return True
         else:
@@ -30,13 +31,22 @@ class HelperAdapter(LogicAdapter):
            :param input_statement: input from user
            :param additional_response_selection_parameters
            Function to process weather request
-           """
+        """
         from chatterbot.conversation import Statement
 
+        # if input_statement.find('display examples'):
+        #     response_statement = Statement(text='1. Maths : What is four plus four? '
+        #                                         '2. Lunch Application: open chrome - this will do a look up '
+        #                                         'in the applications list(hardcoded atm) '
+        #                                         '3. Weather: what temperature is it in Galway - Maybe add onto this '
+        #                                         'this')
+        #     confidence = 1
+        #     response_statement.confidence = confidence
+        #     return response_statement
+        # else:
         response_statement = Statement(text='I Nuton can tell you the weather in any city you wish, I can open an'
                                             'application for you, I can tell you the time and I can also do maths but '
                                             'thats obvious I am a computer')
         confidence = 1
         response_statement.confidence = confidence
-
         return response_statement

@@ -11,11 +11,24 @@ logging.basicConfig(level=logging.ERROR)
 """
 :Authors - Cathal Butler | Morgan Reilly
 Currently main class that creates and sets up the bot Nuton
+Nuton Listens in a loop for a request from the user
 Refs:
 https://chatterbot.readthedocs.io/en/stable/index.html
 https://github.com/Uberi/speech_recognition#readme
 http://www.cstr.ed.ac.uk/projects/festival/
 """
+
+time_positive = ['what is the time right now', 'what is the current time', 'what is the time now', 'what’s the time',
+                 'what time is it',
+                 'what time is it now', 'do you know what time it is', 'could you tell me the time, please',
+                 'what is the time', 'will you tell me the time',
+                 'tell me the time', 'time please', 'show me the time', 'what is time', 'whats on the clock', 'clock',
+                 'show me the clock', 'what is the time']
+
+time_negative = ['what are you doing', 'what’s up', 'could you', 'do you', 'what’s', 'will you', 'tell me', 'show me',
+                 'current', 'do', 'now',
+                 'will', 'show', 'tell', 'me', 'could', 'what', 'whats', 'i have time', 'who', 'who is', 'hardtime',
+                 'when is time', 'how is time', 'who is time']
 
 bot = ChatBot(
     'Nuton',  # Bot name
@@ -40,14 +53,14 @@ bot = ChatBot(
         {
             # Imported Time logic adapter
             'import_path': 'chatterbot.logic.TimeLogicAdapter',
-            # 'positive': 'time_positive',
-            # 'negative': 'time_negative'
+            'positive': 'time_positive',
+            'negative': 'time_negative'
         },
         {
             'import_path': "chatterbot.logic.MathematicalEvaluation",
         }
     ],
-)
+)# End bot
 
 # Train the chat bot with the entire english corpus
 # trainer.train('chatterbot.corpus.english')
@@ -56,17 +69,19 @@ trainer.train("chatterbot.corpus.english.greetings",
               "chatterbot.corpus.english.conversations")
 
 
-def speak(text):
+def nuton_speak(text):
     """
     Function that uses festival, a text to speech package to replay to the user
-    :param text: text you can to be spoke
+    :param text: text you wish to be spoke
     """
     if platform.system() == 'Darwin':
+        print('Nuton: ' + str(text))
         cmd = ['say', str(text)]
         subprocess.call(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     elif platform.system() == "Windows":
         print('Not supported right now')
     else:
+        print('Nuton: ' + str(text))
         subprocess.run(
             'echo "' + str(text) + '" | festival --tts',
             shell=True)
@@ -75,8 +90,13 @@ def speak(text):
 # Instances of speech Recognition
 recognizer = sr.Recognizer()
 
+# Heading
+print('===================================================='
+      '\n========== Nuton, Personal Assistant ==============='
+      '\n====================================================\n')
+
 # First question from bot using text to speech)
-speak('Hi I am Nuton, What can I assist you with?')
+nuton_speak('Hi I am Nuton, What can I assist you with?')
 
 while True:
     try:
@@ -92,17 +112,16 @@ while True:
             """
             Supported questions so far:
                 1. Maths : 'What is four plus four?'
-                2. Lunch Application: 'open chrome' - this will do a look up in the applications list(hardcode atm)
+                2. Lunch Application: 'open chrome' - this will do a look up in the applications list(hardcoded atm)
                 3. Weather: 'what temperature is it in Galway' - Maybe add onto this this
             """
-            response = bot.get_response("What can you do")  # Hardcoded text for testing, not using mic
-
-            speak(response)
+            response = bot.get_response("what can you do")  # Hardcoded text for testing, not using mic
+            nuton_speak(response)
 
     except sr.UnknownValueError:
-        speak('I am sorry, I could not understand that.')
+        nuton_speak('I am sorry, I could not understand that.')
     except sr.Recognizer as e:
         message = 'My speech recognition service has failed. {0}'
-        speak(message.format(e))
+        nuton_speak(message.format(e))
     except (KeyboardInterrupt, EOFError, SystemExit):
         break
