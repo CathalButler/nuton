@@ -124,6 +124,9 @@ def recognise_from_mic(recogniser, mic):
             recogniser.adjust_for_ambient_noise(source)  # Adjust for background noise
             audio = recogniser.listen(source)  # Listen to voice
         try:
+            # First question from bot using text to speech)
+            nuton_speak('Hi I am Nuton, What can I assist you with?')
+
             audio_recognised = recogniser.recognize_google(audio)
             print('You said: ', audio_recognised)
 
@@ -133,8 +136,8 @@ def recognise_from_mic(recogniser, mic):
                 2. Lunch Application: 'open chrome' - this will do a look up in the applications list(hardcoded atm)
                 3. Weather: 'what temperature is it in Galway' - Maybe add onto this this
             """
-            # response = bot.get_response("")  # Hardcoded text for testing, not using mic
-            # nuton_speak(response)
+            response = bot.get_response("")  # Hardcoded text for testing, not using mic
+            nuton_speak(response)
         except Exception as e:
             print(e)
             print(f'ERROR: Could not recognise audio\nPlease check input and try agian...\n{e}')
@@ -159,15 +162,14 @@ def console_input():
 
 def main():
     """Main Method"""
+    # nuton_speak("Hello there")
     display_header()
 
     recogniser = sr.Recognizer()  # Import the Speech Recogniser
     microphone = sr.Microphone()  # Use Microphone
 
     recognise_from_mic(recogniser, microphone)
-
-    # First question from bot using text to speech)
-    # nuton_speak('Hi I am Nuton, What can I assist you with?')
+    # print(platform.system())
 
 
 if __name__ == "__main__":
