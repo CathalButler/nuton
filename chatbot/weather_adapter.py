@@ -30,6 +30,7 @@ class WeatherAdapter(LogicAdapter):
         """
            :param input_statement: input from user
            :param additional_response_selection_parameters
+           :return response_statement and confidence number
            Function to process weather request
            """
         import requests

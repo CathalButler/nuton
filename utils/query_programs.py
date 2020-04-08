@@ -11,7 +11,7 @@ def read_command_file():
     Function reads a files contents and returns it in a dictionary.
     """
     print('Reading file...')
-    command_file_path = '../app_locatation_manjaro_kde.txt'
+    command_file_path = '../application_location.txt'
     dic = {}
 
     # Get k and val from file:

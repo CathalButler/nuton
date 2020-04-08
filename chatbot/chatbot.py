@@ -130,7 +130,7 @@ def main():
                     2. Lunch Application: 'open chrome' - this will do a look up in the applications list(hardcoded atm)
                     3. Weather: 'what temperature is it in Galway' - Maybe add onto this this
                 """
-                response = bot.get_response("")  # Hardcoded text for testing, not using mic
+                response = bot.get_response("launch google")  # Hardcoded text for testing, not using mic
                 nuton_speak(response)
 
         except sr.UnknownValueError:
