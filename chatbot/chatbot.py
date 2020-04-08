@@ -81,8 +81,9 @@ trainer = ChatterBotCorpusTrainer(bot)  # Train bot on list data
 trainer.train("chatterbot.corpus.english.greetings",
               "chatterbot.corpus.english.conversations")
 
-"""Instance of speech Recognition"""
-recognizer = sr.Recognizer()
+
+# """Instance of speech Recognition"""
+# recognizer = sr.Recognizer()
 
 
 def nuton_speak(text):
@@ -110,51 +111,63 @@ def display_header():
           '\n====================================================\n')
 
 
-def main():
-    display_header()
-    # First question from bot using text to speech)
-    nuton_speak('Hi I am Nuton, What can I assist you with?')
+def recognise_from_mic(recogniser, mic):
+    """Recognise Input From Microphone"""
+    if not isinstance(mic, sr.Microphone):
+        raise TypeError("'mic' must be an instance of `Microphone`")
+        # Check if Recogniser is valid type
+    if not isinstance(recogniser, sr.Recognizer):
+        raise TypeError("`recogniser` must be an instance of `Recogniser`")
 
-    # while True:
-    #     try:
-    #         with sr.Microphone() as source:
-    #             recognizer.adjust_for_ambient_noise(source)
-    #             recognizer_function = getattr(recognizer, 'recognize_google')
-    #
-    #             # audio = recognizer.listen(source)
-    #             # result = recognizer_function(audio)
-    #             # print('You said: ', result)
-    #             # msg_statement = Statement(text="open chrome")
-    #
-    #             """
-    #             Supported questions so far:
-    #                 1. Maths : 'What is four plus four?'
-    #                 2. Lunch Application: 'open chrome' - this will do a look up in the applications list(hardcoded atm)
-    #                 3. Weather: 'what temperature is it in Galway' - Maybe add onto this this
-    #             """
-    #             response = bot.get_response("")  # Hardcoded text for testing, not using mic
-    #             nuton_speak(response)
-    #
-    #     except sr.UnknownValueError:
-    #         nuton_speak('I am sorry, I could not understand that.')
-    #     except sr.Recognizer as e:
-    #         message = 'My speech recognition service has failed. {0}'
-    #         nuton_speak(message.format(e))
-    #     except (KeyboardInterrupt, EOFError, SystemExit):
-    #         break
+    while True:
+        with mic as source:
+            recogniser.adjust_for_ambient_noise(source)  # Adjust for background noise
+            audio = recogniser.listen(source)  # Listen to voice
+        try:
+            audio_recognised = recogniser.recognize_google(audio)
+            print('You said: ', audio_recognised)
 
+            """
+            Supported questions so far:
+                1. Maths : 'What is four plus four?'
+                2. Lunch Application: 'open chrome' - this will do a look up in the applications list(hardcoded atm)
+                3. Weather: 'what temperature is it in Galway' - Maybe add onto this this
+            """
+            # response = bot.get_response("")  # Hardcoded text for testing, not using mic
+            # nuton_speak(response)
+        except Exception as e:
+            print(e)
+            print(f'ERROR: Could not recognise audio\nPlease check input and try agian...\n{e}')
+        except sr.Recognizer as e:
+            message = 'My speech recognition service has failed. {0}'
+            nuton_speak(message.format(e))
+        except (KeyboardInterrupt, EOFError, SystemExit):
+            break
+
+
+def console_input():
     """Testing database with console input"""
     while True:
         try:
             user_input = input()
-
             bot_response = bot.get_response(user_input)
-
             print(bot_response)
-
         # Press ctrl-c or ctrl-d on the keyboard to exit
         except (KeyboardInterrupt, EOFError, SystemExit):
             break
+
+
+def main():
+    """Main Method"""
+    display_header()
+
+    recogniser = sr.Recognizer()  # Import the Speech Recogniser
+    microphone = sr.Microphone()  # Use Microphone
+
+    recognise_from_mic(recogniser, microphone)
+
+    # First question from bot using text to speech)
+    # nuton_speak('Hi I am Nuton, What can I assist you with?')
 
 
 if __name__ == "__main__":
