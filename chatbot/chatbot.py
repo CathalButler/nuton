@@ -40,7 +40,8 @@ Logic adapters determine the logic for how Nuton selects a response to an input 
 """
 bot = ChatBot(
     'Nuton',  # Bot name
-    storage_adapter='chatterbot.storage.SQLStorageAdapter',  # Storage config
+    # storage_adapter='chatterbot.storage.SQLStorageAdapter',  # Storage config (SQLite)
+    storage_adapter='chatterbot.storage.MongoDatabaseAdapter',  # Storage config (MongoDB)
     logic_adapters=[
         {
             # Custom logic adapter for weather requests
@@ -68,6 +69,7 @@ bot = ChatBot(
             'import_path': "chatterbot.logic.MathematicalEvaluation",
         }
     ],
+    database_uri='mongodb+srv://morgan:root@nutonstore-ldff3.mongodb.net/nutondb'
 )  # End bot
 
 """
@@ -113,31 +115,44 @@ def main():
     # First question from bot using text to speech)
     nuton_speak('Hi I am Nuton, What can I assist you with?')
 
+    # while True:
+    #     try:
+    #         with sr.Microphone() as source:
+    #             recognizer.adjust_for_ambient_noise(source)
+    #             recognizer_function = getattr(recognizer, 'recognize_google')
+    #
+    #             # audio = recognizer.listen(source)
+    #             # result = recognizer_function(audio)
+    #             # print('You said: ', result)
+    #             # msg_statement = Statement(text="open chrome")
+    #
+    #             """
+    #             Supported questions so far:
+    #                 1. Maths : 'What is four plus four?'
+    #                 2. Lunch Application: 'open chrome' - this will do a look up in the applications list(hardcoded atm)
+    #                 3. Weather: 'what temperature is it in Galway' - Maybe add onto this this
+    #             """
+    #             response = bot.get_response("")  # Hardcoded text for testing, not using mic
+    #             nuton_speak(response)
+    #
+    #     except sr.UnknownValueError:
+    #         nuton_speak('I am sorry, I could not understand that.')
+    #     except sr.Recognizer as e:
+    #         message = 'My speech recognition service has failed. {0}'
+    #         nuton_speak(message.format(e))
+    #     except (KeyboardInterrupt, EOFError, SystemExit):
+    #         break
+
+    """Testing database with console input"""
     while True:
         try:
-            with sr.Microphone() as source:
-                recognizer.adjust_for_ambient_noise(source)
-                recognizer_function = getattr(recognizer, 'recognize_google')
+            user_input = input()
 
-                # audio = recognizer.listen(source)
-                # result = recognizer_function(audio)
-                # print('You said: ', result)
-                # msg_statement = Statement(text="open chrome")
+            bot_response = bot.get_response(user_input)
 
-                """
-                Supported questions so far:
-                    1. Maths : 'What is four plus four?'
-                    2. Lunch Application: 'open chrome' - this will do a look up in the applications list(hardcoded atm)
-                    3. Weather: 'what temperature is it in Galway' - Maybe add onto this this
-                """
-                response = bot.get_response("")  # Hardcoded text for testing, not using mic
-                nuton_speak(response)
+            print(bot_response)
 
-        except sr.UnknownValueError:
-            nuton_speak('I am sorry, I could not understand that.')
-        except sr.Recognizer as e:
-            message = 'My speech recognition service has failed. {0}'
-            nuton_speak(message.format(e))
+        # Press ctrl-c or ctrl-d on the keyboard to exit
         except (KeyboardInterrupt, EOFError, SystemExit):
             break
 
