@@ -59,6 +59,11 @@ bot = ChatBot(
             'default_response': 'I am sorry, but I do not understand.'
         },
         {
+            # Custom logic adapter for opening applications
+            'import_path': 'notes_adapter.NotesAdapter',
+            'default_response': 'I am sorry, but I do not understand.'
+        },
+        {
             # Imported Time logic adapter
             'import_path': 'chatterbot.logic.TimeLogicAdapter',
             'positive': 'time_positive',
@@ -119,10 +124,10 @@ def main():
                 recognizer.adjust_for_ambient_noise(source)
                 recognizer_function = getattr(recognizer, 'recognize_google')
 
-                # audio = recognizer.listen(source)
-                # result = recognizer_function(audio)
-                # print('You said: ', result)
-                # msg_statement = Statement(text="open chrome")
+                audio = recognizer.listen(source)
+                result = recognizer_function(audio)
+                print('You said: ', result)
+                #msg_statement = Statement(text="open chrome")
 
                 """
                 Supported questions so far:
@@ -130,7 +135,7 @@ def main():
                     2. Lunch Application: 'open chrome' - this will do a look up in the applications list(hardcoded atm)
                     3. Weather: 'what temperature is it in Galway' - Maybe add onto this this
                 """
-                response = bot.get_response("launch google")  # Hardcoded text for testing, not using mic
+                response = bot.get_response(result)  # Hardcoded text for testing, not using mic
                 nuton_speak(response)
 
         except sr.UnknownValueError:

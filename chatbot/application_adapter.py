@@ -35,7 +35,7 @@ class ApplicationAdapter(LogicAdapter):
         :param statement: input from user
         :param additional_response_selection_parameters
         :return msg_statement : response message and confidence number
-        Function to process request
+        Function to process opening an applications or website as a subprocess
         """
         from utils.query_programs import read_command_file
         from utils.query_programs import query_dictionary
@@ -93,7 +93,7 @@ def query_websites(site_name):
     :return: boolean, True if a match is found else false
     """
     # Variables
-    website = ["facebook", "github", "linkedin", "youtube", "skynews", "outlook", "gmail", "google"]
+    website = ["facebook", "github", "linkedin", "youtube", "skynews", "outlook", "gmail", "google", "twitter"]
     # Loop though array and try match the requested website:
     for site in website:
         if site == site_name:

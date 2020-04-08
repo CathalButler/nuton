@@ -17,7 +17,7 @@ class HelperAdapter(LogicAdapter):
     def can_process(self, statement):
         """
         Return true if the input statement contains
-        what is listed in the int he queries array
+        anything listed in the the queries array
         """
         queries = ['what can you do', 'help', 'display examples']
         if any(x in statement.text for x in queries):
@@ -30,7 +30,7 @@ class HelperAdapter(LogicAdapter):
         """
            :param input_statement: input from user
            :param additional_response_selection_parameters
-           Function to process weather request
+           Function to handle returning information message to the user
         """
         from chatterbot.conversation import Statement
 

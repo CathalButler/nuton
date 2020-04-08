@@ -1,8 +1,6 @@
 """
 This class reads the file which stores locations of application binary
 """
-import platform
-import distro
 import os
 
 
