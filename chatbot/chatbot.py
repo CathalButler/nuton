@@ -1,7 +1,6 @@
 import logging
 import platform
 import subprocess
-
 import speech_recognition as sr
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
@@ -86,7 +85,7 @@ recognizer = sr.Recognizer()
 
 def nuton_speak(text):
     """
-    Function that uses festival, a text to speech package to replay to the user
+    Function that uses espeak, a text to speech package to replay to the user
     :param text: text you wish to be spoke
     """
     if platform.system() == 'Darwin':
@@ -98,7 +97,7 @@ def nuton_speak(text):
     else:
         print('Nuton: ' + str(text))
         subprocess.run(
-            'echo "' + str(text) + '" | festival --tts',
+            'echo "' + str(text) + '" | espeak',
             shell=True)
 
 
@@ -112,7 +111,7 @@ def display_header():
 def main():
     display_header()
     # First question from bot using text to speech)
-    # nuton_speak('Hi I am Nuton, What can I assist you with?')
+    nuton_speak('Hi I am Nuton, What can I assist you with?')
 
     while True:
         try:
@@ -131,7 +130,7 @@ def main():
                     2. Lunch Application: 'open chrome' - this will do a look up in the applications list(hardcoded atm)
                     3. Weather: 'what temperature is it in Galway' - Maybe add onto this this
                 """
-                response = bot.get_response("what can you do")  # Hardcoded text for testing, not using mic
+                response = bot.get_response("")  # Hardcoded text for testing, not using mic
                 nuton_speak(response)
 
         except sr.UnknownValueError:

@@ -12,8 +12,8 @@ This project was initially meant to be a Kinect game but was changed due to hard
 The aim for this project is to make something based around gesture based UI, after carrying out some research it was decided that a
 personal voice assistant is what the project was going to be based on using 
    * [Chatterbot](https://chatterbot.readthedocs.io/en/stable/) | Machine Learning, conversational dialog engine.
-   * [Speech Recognition](https://pypi.org/project/SpeechRecognition/) | Speech Recognition engine using the Google API
-   * [Festival](http://www.cstr.ed.ac.uk/projects/festival/) | Multi-lingual text-to-speech package
+   * [Speech Recognition](https://pypi.org/project/SpeechRecognition/) | Speech Recognition engine using the Google API.
+   * [eSpeak](http://espeak.sourceforge.net/) | Open source speech synthesizer for English and other languages.
   
 ### What is Nuton
 Nuton is your bot that will interpret voice commands you issue it. It does this with the help of the package 
@@ -26,18 +26,18 @@ and so on.
 
 ![](uploads/nuton.png)
 
-* ###How Nuton Works
+* ### How Nuton Works
     * Nuton is created and trained using [Chatterbot](https://chatterbot.readthedocs.io/en/stable/) a Python machine learning, 
     conversational dialog engine. A Chatterbot starts off with no knowledge of how to communicate but with the help
     of user input, corpus data and logic adapters, the bot can learn and return the correct response to the users input.
     
         ![](uploads/nutons_process_flow.png)
         
-* ###Training
+* ### Training
     *  Chatterbot has a lot of corpus data files you can use to train the bot or you can specify your own one. In Nutons case
     the English corpus was used for training as well as some custom coupes data that works better with custom logic adapters
   
-* ###Gesture Implementation With Hardware
+* ### Gesture Implementation With Hardware
     *  As the project statement states, *develop an application with natural user interacting* this was done by 
     implementing a microphone into the program to record the user's voice. With the help of the Python Speech Recognition 
     engine, it analyzes the audio and return the result as text. The text result would then be passed onto the Chatterbot 
@@ -45,8 +45,6 @@ and so on.
 
 
 ### Environment Setup -- Linux
-* Note: [Festival](http://www.cstr.ed.ac.uk/projects/festival/) may need to be manully installed if it is not already
-installed with your OS, this can be done through your package manager (apt, pacman, yum ...)
 * Download [requirements.txt](/requirements.txt)
 * Create Virtual Environment
 * `python3 -m venv venv`
@@ -55,11 +53,16 @@ installed with your OS, this can be done through your package manager (apt, pacm
 * Pip install packages
 * `pip install -r requirements.txt`
 
-### Festival Setup -- Ubuntu
-* `$ sudo apt-get install festival && sudo apt-get install festival-dev && sudo apt-get install festlex-poslex && sudo apt-get install festlex-cmu`
-* If correctly installed, test by running:
-* `$ echo "hello world" | festival --tts`  A voice should read out "Hello world"
-* In my case I was missing the voices directory, this should [help with missing voices](https://ubuntuforums.org/showthread.php?t=677277)
+### Espeak Setup -- Linux
+ * Ubuntu
+    - `sudo apt-get install espeak`
+    - Test `echo "Hello World." | espeak`
+    - Hello World will be played back to you.
+    
+ * Manjaro / Arch Linux
+    - `sudo pacman -S espeak`
+    - Test `echo "Hello World." | espeak`
+    - Hello World will be played back to you.
 
 ### Running The Application
 * Assuming correct set up and activation of environment
@@ -76,7 +79,7 @@ This project was developed and tested on
 ### References
  * https://chatterbot.readthedocs.io/en/stable/index.html
  * https://github.com/Uberi/speech_recognition#readme
- * http://www.cstr.ed.ac.uk/projects/festival/
+ * http://espeak.sourceforge.net/
  * https://realpython.com/python-speech-recognition/
  * https://cmusphinx.github.io/wiki/tutorial/
  * https://github.com/Uberi/speech_recognition/blob/master/reference/library-reference.rst
