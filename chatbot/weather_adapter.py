@@ -23,7 +23,6 @@ class WeatherAdapter(LogicAdapter):
         """
         # sentences = ['what temperature is it in', 'Whats the weather like in', '' 'it' 'in']
         if statement.text.startswith('what temperature is it in'):
-            print(True)
             return True
         else:
             return False
@@ -40,7 +39,6 @@ class WeatherAdapter(LogicAdapter):
         api_key = 'fd0c6f39f71a0d238c09fd22789cc73c'
         # Post pressing of the statement, taking the last word as that is the name of the city
         temp = input_statement.text.split()
-        print(temp[-1])
 
         # Weather request for current forecast sent to open weather map
         url = 'http://api.openweathermap.org/data/2.5/weather?q=' + temp[-1] + '&units=metric' + '&appid=' + api_key
@@ -51,13 +49,11 @@ class WeatherAdapter(LogicAdapter):
             confidence = 1
             temperature = data.get('main')['temp']
             response_statement = Statement(text='The current temperature is {}'.format(round(temperature)) + ' degrees')
-            print(data)
             response_statement.confidence = confidence
             return response_statement
         elif response.status_code == 404:
             data = data.get('message')
             response_statement = Statement(text='Sorry, ' + data)
-            print(data)
             confidence = 1
             response_statement.confidence = confidence
             return response_statement

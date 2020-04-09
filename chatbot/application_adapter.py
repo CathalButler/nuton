@@ -90,7 +90,7 @@ def query_websites(site_name):
     """
     # Variables
     website = ["facebook", "github", "linkedin", "youtube", "skynews", "outlook", "gmail", "google", "twitter",
-               "amazon", "reddit", "netflix", ""]
+               "amazon", "reddit", "netflix"]
     # Loop though array and try match the requested website:
     for site in website:
         if site == site_name:
