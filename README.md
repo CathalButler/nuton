@@ -53,7 +53,7 @@ and so on.
 * Pip install packages
 * `pip install -r requirements.txt`
 
-### Espeak Setup -- Linux
+### eSpeak
  * Ubuntu
     - `sudo apt-get install espeak`
     - Test `echo "Hello World." | espeak`
@@ -66,15 +66,19 @@ and so on.
 
 ### Running The Application
 * Assuming correct set up and activation of environment
-* In root directory, type:
+* `cd chatbot` 
 * `python main.py`
 
 ### Development & Testing
 This project was developed and tested on
-* OS: [Manjaro Linux](https://manjaro.org/download/official/kde/) & [Ubuntu 19.19](https://ubuntu.com/)
-* Python 3.8.2
-* [PyCharm 2019.3.4 (Professional Edition)](https://www.jetbrains.com/pycharm/)
-  - Build #PY-193.6911.25, built on March 18, 2020
+* Testing Environments
+    * OS: [Manjaro Linux](https://manjaro.org/download/official/kde/) & [Ubuntu 19.19](https://ubuntu.com/)
+    * Python 3.8.2
+    * [PyCharm 2019.3.4 (Professional Edition)](https://www.jetbrains.com/pycharm/)
+      - Build #PY-193.6911.25, built on March 18, 2020
+* Test Cases 
+    * *spreadsheet link to go here*
+
   
 ### References
  * https://chatterbot.readthedocs.io/en/stable/index.html

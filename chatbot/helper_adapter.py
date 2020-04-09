@@ -38,8 +38,9 @@ class HelperAdapter(LogicAdapter):
                                                 '2. Lunch Application, open chrome or open twitter '
                                                 '3. Weather, what temperature is it in Galway '
                                                 '4. Time, what time is it '
-                                                '5. Note, "make a note" followed by what you wish to add "the weather '
-                                                'is very nice today" and to retrieve the note say "read me my note"')
+                                                '5. Note, "make a note" followed by what you wish to add "I have a '
+                                                'meeting Tuesday" is very nice today" and to retrieve the note say '
+                                                '"read me my note"')
             confidence = 1
             response_statement.confidence = confidence
             return response_statement

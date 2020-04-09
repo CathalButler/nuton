@@ -29,7 +29,7 @@ bot = ChatBot(
         {
             'import_path': 'chatterbot.logic.BestMatch'
         },
-        {
+        {  # Custom logic adapter for notes requests
             'import_path': 'notes_adapter.NotesAdapter'
         },
         {
@@ -63,7 +63,6 @@ bot = ChatBot(
 Bot Training
 Train the chat bot with the entire english corpus
 """
-# trainer.train('chatterbot.corpus.english')
 trainer = ChatterBotCorpusTrainer(bot)  # Train bot on list data
 trainer.train("chatterbot.corpus.english.greetings",
               "chatterbot.corpus.english.conversations")
@@ -102,6 +101,7 @@ def recognise_from_mic(recogniser, mic):
 
     # First question from bot using text to speech)
     nuton_speak('Hi I am Nuton, What can I assist you with?')
+
     while True:
         with mic as source:
             recogniser.adjust_for_ambient_noise(source)  # Adjust for background noise
@@ -116,10 +116,11 @@ def recognise_from_mic(recogniser, mic):
                 2. Lunch Application: 'open chrome'
                 3. Weather: 'what temperature is it in Galway'
                 4. Time: 'what time is it'
-                5. Note, "make a note" followed by what you wish to add "the weather is very nice today"
+                5. Note, "make a note" followed by what you wish to add "I have a meeting Tuesday"
                 To retrieve the note say "read me my note"
             """
-            response = bot.get_response(audio_recognised)  # Hardcoded text for testing, not using mic
+            response = bot.get_response(audio_recognised)  # Pass input and the bot returns a results
+            # Nuton output the response
             nuton_speak(response)
         except Exception as e:
             print(e)
