@@ -5,6 +5,7 @@
 # https://github.com/Uberi/speech_recognition/blob/master/reference/library-reference.rst -- Docs
 # https://stackoverflow.com/questions/31603555/unknown-pcm-cards-pcm-rear-pyaudio -- Fix for PCM card error
 import speech_recognition as sr
+import os
 
 
 def capture_from_audio(recogniser, audio_input, offset, duration, adjust_ambient_duration, display_transcript):
@@ -27,7 +28,6 @@ def capture_from_audio(recogniser, audio_input, offset, duration, adjust_ambient
     try:
         print('Recognised: ',
               recogniser.recognize_google(audio, show_all=display_transcript))  # Output audio recognition
-        # print(r.recognize_google(audio1))
     except Exception as e:
         print(e)
         print('ERROR: Could not recognise audio\nPlease check input and try agian...')
@@ -50,17 +50,26 @@ def capture_from_mic(recogniser, mic):
     return audio_recognised
 
 
-def main():
-    # Import Audio File
-    harvard = sr.AudioFile('audio_files/harvard.wav')
-    jackhammer = sr.AudioFile('audio_files/jackhammer.wav')
-    # Import the Speech Recogniser
-    recogniser = sr.Recognizer()
-
-    # Use Microphone
-    microphone = sr.Microphone()
+def run_mic_test(recogniser, microphone):
     audio_recognised = capture_from_mic(recogniser, microphone)
     print('Captured Audio: ', audio_recognised)
+
+
+def run_file_test(recogniser):
+    working_dir = os.path.dirname(os.path.abspath(__file__))
+    # Import Audio File
+    harvard = sr.AudioFile(os.path.join(working_dir, 'audio_files/harvard.wav'))
+    jackhammer = sr.AudioFile(os.path.join(working_dir, 'audio_files/jackhammer.wav'))
+    capture_from_audio(recogniser, harvard, 0, 0, 1, False)  # Using decent, standard audio clip
+    capture_from_audio(recogniser, jackhammer, 0, 0, 0.5, True)  # Using poor quality, standard audio clip
+
+
+def main():
+    recogniser = sr.Recognizer()  # Import the Speech Recogniser
+    microphone = sr.Microphone()  # Use Microphone
+
+    run_file_test(recogniser)
+    run_mic_test(recogniser, microphone)
 
 
 if __name__ == "__main__":
