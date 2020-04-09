@@ -53,9 +53,13 @@ class NotesAdapter(LogicAdapter):
 
         else:
             file_name = 'notes/note.txt'
-            file_in = open(file_name, "r")
+            try:
+                file_in = open(file_name, "r")
+                response = Statement(text=file_in.read())
+                response.confidence = 1
+                return response
 
-            response = Statement(text=file_in.read())
-            response.confidence = 1
-
-            return response
+            except FileNotFoundError:
+                response = Statement(text="No previous notes saved.")
+                response.confidence = 1
+                return response
