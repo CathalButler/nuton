@@ -1,8 +1,6 @@
 """
 This class reads the file which stores locations of application binary
 """
-import platform
-import distro
 import os
 
 
@@ -11,7 +9,7 @@ def read_command_file():
     Function reads a files contents and returns it in a dictionary.
     """
     print('Reading file...')
-    command_file_path = '../app_locatation_manjaro_kde.txt'
+    command_file_path = '../application_location.txt'
     dic = {}
 
     # Get k and val from file:
@@ -24,7 +22,6 @@ def read_command_file():
                         key, value = data[0], data[1]
                         dic[key] = value
 
-                print(dic)
                 return dic
             except:
                 print('Error processing file')
@@ -38,7 +35,6 @@ def query_dictionary(commands_dictionary, query):
     to find a match to the query
     Functions returns the key which is the command
     """
-    print(commands_dictionary)
 
     # Read key and value from dic
     for k, val in commands_dictionary.items():

@@ -5,33 +5,17 @@ import speech_recognition as sr
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 
-logging.basicConfig(level=logging.ERROR)
+logging.basicConfig(level=logging.INFO)
 
 """
 :Authors - Cathal Butler | Morgan Reilly
 Currently main class that creates and sets up the bot Nuton
 Nuton Listens in a loop for a request from the user
-Refs:
+References:
 https://chatterbot.readthedocs.io/en/stable/index.html
 https://github.com/Uberi/speech_recognition#readme
 http://www.cstr.ed.ac.uk/projects/festival/
 """
-
-"""
-Time positive / Time negative: 
-Training Data for Nuton to understand
-"""
-time_positive = ['what is the time right now', 'what is the current time', 'what is the time now', 'what’s the time',
-                 'what time is it',
-                 'what time is it now', 'do you know what time it is', 'could you tell me the time, please',
-                 'what is the time', 'will you tell me the time',
-                 'tell me the time', 'time please', 'show me the time', 'what is time', 'whats on the clock', 'clock',
-                 'show me the clock', 'what is the time']
-
-time_negative = ['what are you doing', 'what’s up', 'could you', 'do you', 'what’s', 'will you', 'tell me', 'show me',
-                 'current', 'do', 'now',
-                 'will', 'show', 'tell', 'me', 'could', 'what', 'whats', 'i have time', 'who', 'who is', 'hardtime',
-                 'when is time', 'how is time', 'who is time']
 
 """
 Initialise a new ChatBot
@@ -40,9 +24,14 @@ Logic adapters determine the logic for how Nuton selects a response to an input 
 """
 bot = ChatBot(
     'Nuton',  # Bot name
-    # storage_adapter='chatterbot.storage.SQLStorageAdapter',  # Storage config (SQLite)
     storage_adapter='chatterbot.storage.MongoDatabaseAdapter',  # Storage config (MongoDB)
     logic_adapters=[
+        {
+            'import_path': 'chatterbot.logic.BestMatch'
+        },
+        {  # Custom logic adapter for notes requests
+            'import_path': 'notes_adapter.NotesAdapter'
+        },
         {
             # Custom logic adapter for weather requests
             'import_path': 'weather_adapter.WeatherAdapter',
@@ -62,8 +51,6 @@ bot = ChatBot(
         {
             # Imported Time logic adapter
             'import_path': 'chatterbot.logic.TimeLogicAdapter',
-            'positive': 'time_positive',
-            'negative': 'time_negative'
         },
         {
             'import_path': "chatterbot.logic.MathematicalEvaluation",
@@ -76,19 +63,14 @@ bot = ChatBot(
 Bot Training
 Train the chat bot with the entire english corpus
 """
-# trainer.train('chatterbot.corpus.english')
 trainer = ChatterBotCorpusTrainer(bot)  # Train bot on list data
 trainer.train("chatterbot.corpus.english.greetings",
               "chatterbot.corpus.english.conversations")
 
 
-# """Instance of speech Recognition"""
-# recognizer = sr.Recognizer()
-
-
 def nuton_speak(text):
     """
-    Function that uses espeak, a text to speech package to replay to the user
+    Function that uses eSpeak, a text to speech package to replay to the user
     :param text: text you wish to be spoke
     """
     if platform.system() == 'Darwin':
@@ -99,9 +81,7 @@ def nuton_speak(text):
         print('Not supported right now')
     else:
         print('Nuton: ' + str(text))
-        subprocess.run(
-            'echo "' + str(text) + '" | espeak',
-            shell=True)
+        subprocess.run('echo "' + str(text) + '" | espeak', shell=True)
 
 
 def display_header():
@@ -119,28 +99,32 @@ def recognise_from_mic(recogniser, mic):
     if not isinstance(recogniser, sr.Recognizer):
         raise TypeError("`recogniser` must be an instance of `Recogniser`")
 
+    # First question from bot using text to speech)
+    nuton_speak('Hi I am Nuton, What can I assist you with?')
+
     while True:
         with mic as source:
             recogniser.adjust_for_ambient_noise(source)  # Adjust for background noise
             audio = recogniser.listen(source)  # Listen to voice
         try:
-            # First question from bot using text to speech)
-            nuton_speak('Hi I am Nuton, What can I assist you with?')
-
             audio_recognised = recogniser.recognize_google(audio)
             print('You said: ', audio_recognised)
 
             """
             Supported questions so far:
                 1. Maths : 'What is four plus four?'
-                2. Lunch Application: 'open chrome' - this will do a look up in the applications list(hardcoded atm)
-                3. Weather: 'what temperature is it in Galway' - Maybe add onto this this
+                2. Lunch Application: 'open chrome'
+                3. Weather: 'what temperature is it in Galway'
+                4. Time: 'what time is it'
+                5. Note, "make a note" followed by what you wish to add "I have a meeting Tuesday"
+                To retrieve the note say "read me my note"
             """
-            response = bot.get_response("")  # Hardcoded text for testing, not using mic
+            response = bot.get_response(audio_recognised)  # Pass input and the bot returns a results
+            # Nuton output the response
             nuton_speak(response)
         except Exception as e:
             print(e)
-            print(f'ERROR: Could not recognise audio\nPlease check input and try agian...\n{e}')
+            print(f'ERROR: Could not recognise audio\nPlease check input and try again...\n{e}')
         except sr.Recognizer as e:
             message = 'My speech recognition service has failed. {0}'
             nuton_speak(message.format(e))
@@ -148,28 +132,14 @@ def recognise_from_mic(recogniser, mic):
             break
 
 
-def console_input():
-    """Testing database with console input"""
-    while True:
-        try:
-            user_input = input()
-            bot_response = bot.get_response(user_input)
-            print(bot_response)
-        # Press ctrl-c or ctrl-d on the keyboard to exit
-        except (KeyboardInterrupt, EOFError, SystemExit):
-            break
-
-
 def main():
     """Main Method"""
-    # nuton_speak("Hello there")
     display_header()
 
     recogniser = sr.Recognizer()  # Import the Speech Recogniser
     microphone = sr.Microphone()  # Use Microphone
 
     recognise_from_mic(recogniser, microphone)
-    # print(platform.system())
 
 
 if __name__ == "__main__":

@@ -5,8 +5,6 @@
 # https://github.com/Uberi/speech_recognition/blob/master/reference/library-reference.rst -- Docs
 # https://stackoverflow.com/questions/31603555/unknown-pcm-cards-pcm-rear-pyaudio -- Fix for PCM card error
 import speech_recognition as sr
-import os
-import subprocess
 
 
 def capture_from_audio(recogniser, audio_input, offset, duration, adjust_ambient_duration, display_transcript):
