@@ -21,7 +21,6 @@ class HelperAdapter(LogicAdapter):
         """
         queries = ['what can you do', 'help', 'display examples']
         if any(x in statement.text for x in queries):
-            print(True)
             return True
         else:
             return False
@@ -35,18 +34,20 @@ class HelperAdapter(LogicAdapter):
         from chatterbot.conversation import Statement
 
         if input_statement.text == 'display examples':
-            response_statement = Statement(text='1. Maths : What is four plus four? '
-                                                '2. Lunch Application: open chrome - this will do a look up '
-                                                'in the applications list(hardcoded atm) '
-                                                '3. Weather: what temperature is it in Galway - Maybe add onto this '
-                                                'this')
+            response_statement = Statement(text='1. Maths, What is four plus four? '
+                                                '2. Lunch Application, open chrome or open twitter '
+                                                '3. Weather, what temperature is it in Galway '
+                                                '4. Time, what time is it '
+                                                '5. Note, "make a note" followed by what you wish to add "the weather '
+                                                'is very nice today" and to retrieve the note say "read me my note"')
             confidence = 1
             response_statement.confidence = confidence
             return response_statement
         else:
             response_statement = Statement(
                 text='Hey! My name is Nuton! I can give you the weather for any location,'
-                     ' I can open applications for you, along with more help!')
+                     'I can open applications for you, along with more help! If you like some examples say "display '
+                     'examples"')
             confidence = 1
             response_statement.confidence = confidence
             return response_statement

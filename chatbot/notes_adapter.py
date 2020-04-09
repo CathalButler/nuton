@@ -16,9 +16,9 @@ class NotesAdapter(LogicAdapter):
 
     def can_process(self, statement):
         """
+        Checks can this adapter process the request made by the user
         """
-        if statement.text.startswith('make a note'):
-            print(True)
+        if statement.text.startswith('make a note') or statement.text.startswith('read me my note'):
             return True
         else:
             return False
@@ -34,19 +34,28 @@ class NotesAdapter(LogicAdapter):
         from chatterbot.conversation import Statement
         import time
         # https://stackoverflow.com/questions/18867986/python-output-file-with-timestamp
-        tme = time.localtime()
-        timeString = time.strftime("%d%m%y%H:%M:%S", tme)
-        # File name with time stamp to be saved in the notes folder
-        noteFile = 'notes/note{}.txt'.format(timeString)
 
-        # Open file to begin writing
-        out = open(noteFile, "w")
-        for line in statement.text.replace('make a note ', ''):
-            out.write(line)
+        if statement.text.startswith('make a note'):
+            # File name with time stamp to be saved in the notes folder
+            noteFile = 'notes/note.txt'
 
-        out.write("\n")
-        out.close()
+            # Open file to begin writing
+            out = open(noteFile, "w")
+            for line in statement.text.replace('make a note ', ''):
+                out.write(line)
 
-        response = Statement("Your note has been saved")
-        response.confidence = 1
-        return response
+            out.write("\n")
+            out.close()
+
+            response = Statement(text="Your note has been saved")
+            response.confidence = 1
+            return response
+
+        else:
+            file_name = 'notes/note.txt'
+            file_in = open(file_name, "r")
+
+            response = Statement(text=file_in.read())
+            response.confidence = 1
+
+            return response

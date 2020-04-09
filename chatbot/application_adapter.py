@@ -4,8 +4,7 @@ import subprocess
 
 """
 :Author - Cathal Butler
-Custom Logic Adapter class that will handle opening applications when
-When a user requests to open one.
+Custom Logic Adapter class that will handle opening applications and websites when a user requests one.
 Refs: 
 https://chatterbot.readthedocs.io/en/0.8.7/logic/create-a-logic-adapter.html#logic-adapter-methods
 https://www.tutorialdocs.com/tutorial/chatterbot/logic-adapters.html
@@ -29,7 +28,6 @@ class ApplicationAdapter(LogicAdapter):
         else:
             return False
 
-    # TODO - This function acts very weird, may cause issues later so I am marking it with this todo
     def process(self, statement, additional_response_selection_parameters):
         """
         :param statement: input from user
@@ -40,7 +38,6 @@ class ApplicationAdapter(LogicAdapter):
         from utils.query_programs import read_command_file
         from utils.query_programs import query_dictionary
         from chatterbot.conversation import Statement
-        print(statement)
 
         # Post pressing of the statement, store the last word from the statement
         temp = statement.text.split()
@@ -57,8 +54,8 @@ class ApplicationAdapter(LogicAdapter):
                 msg_statement.confidence = 1
                 return msg_statement
             else:
-                msg_statement.text = "Error processing request"
-                msg_statement.confidence = 0
+                msg_statement.text = "Error processing request, did you give application or web site name?"
+                msg_statement.confidence = 1
                 return msg_statement
         else:
             msg_statement.text = "Application has been opened"
@@ -66,8 +63,8 @@ class ApplicationAdapter(LogicAdapter):
             if exec_command(apps):
                 return msg_statement
             else:
-                msg_statement = "Error opening application"
-                msg_statement.confidence = 0
+                msg_statement = "Error opening application, application may not be defined in applications list."
+                msg_statement.confidence = 1
                 return msg_statement
 
 
@@ -93,7 +90,8 @@ def query_websites(site_name):
     :return: boolean, True if a match is found else false
     """
     # Variables
-    website = ["facebook", "github", "linkedin", "youtube", "skynews", "outlook", "gmail", "google", "twitter"]
+    website = ["facebook", "github", "linkedin", "youtube", "skynews", "outlook", "gmail", "google", "twitter",
+               "amazon", "reddit", "netflix", ""]
     # Loop though array and try match the requested website:
     for site in website:
         if site == site_name:

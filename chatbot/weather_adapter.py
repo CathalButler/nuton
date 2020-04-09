@@ -3,9 +3,11 @@ from chatterbot.logic import LogicAdapter
 """
 :Author - Cathal Butler
 Custom Logic Adapter class that will handle weather requests from the user
+Weather data is pulled from openweathermap.org
 Refs: 
 https://chatterbot.readthedocs.io/en/0.8.7/logic/create-a-logic-adapter.html#logic-adapter-methods
 https://www.tutorialdocs.com/tutorial/chatterbot/logic-adapters.html
+https://openweathermap.org/api
 """
 
 
@@ -47,12 +49,20 @@ class WeatherAdapter(LogicAdapter):
 
         if response.status_code == 200:
             confidence = 1
+            temperature = data.get('main')['temp']
+            response_statement = Statement(text='The current temperature is {}'.format(round(temperature)) + ' degrees')
+            print(data)
+            response_statement.confidence = confidence
+            return response_statement
+        elif response.status_code == 404:
+            data = data.get('message')
+            response_statement = Statement(text='Sorry, ' + data)
+            print(data)
+            confidence = 1
+            response_statement.confidence = confidence
+            return response_statement
         else:
-            confidence = 0
-
-        # Build response
-        temperature = data.get('main')['temp']
-        response_statement = Statement(text='The current temperature is {}'.format(round(temperature)) + ' degrees')
-        response_statement.confidence = confidence
-
-        return response_statement
+            response_statement = Statement(text='Sorry I was unable to process that request')
+            confidence = 1
+            response_statement.confidence = confidence
+            return response_statement

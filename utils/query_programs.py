@@ -22,7 +22,6 @@ def read_command_file():
                         key, value = data[0], data[1]
                         dic[key] = value
 
-                print(dic)
                 return dic
             except:
                 print('Error processing file')
@@ -36,7 +35,6 @@ def query_dictionary(commands_dictionary, query):
     to find a match to the query
     Functions returns the key which is the command
     """
-    print(commands_dictionary)
 
     # Read key and value from dic
     for k, val in commands_dictionary.items():
