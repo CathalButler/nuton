@@ -71,13 +71,13 @@ and so on.
 
 ### Development & Testing
 This project was developed and tested on
-* Testing Environments
+* #### Testing Environments
     * OS: [Manjaro Linux](https://manjaro.org/download/official/kde/) & [Ubuntu 19.19](https://ubuntu.com/)
     * Python 3.8.2
     * [PyCharm 2019.3.4 (Professional Edition)](https://www.jetbrains.com/pycharm/)
       - Build #PY-193.6911.25, built on March 18, 2020
-* Test Cases 
-    * *spreadsheet link to go here*
+* #### Test Cases 
+    * Testing that was carried can be found here [nuton_test_cases.xlsx](/uploads/nuton_test_cases.xlsx)
 
   
 ### References
