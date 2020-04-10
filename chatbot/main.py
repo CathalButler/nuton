@@ -1,11 +1,11 @@
-import logging
+# import logging
 import platform
 import subprocess
 import speech_recognition as sr
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 
-logging.basicConfig(level=logging.INFO)
+# logging.basicConfig(level=logging.INFO)
 
 """
 :Authors - Cathal Butler | Morgan Reilly

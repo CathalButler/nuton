@@ -49,8 +49,7 @@ class ApplicationAdapter(LogicAdapter):
 
         if apps is None:  # If no app is found
             if query_websites(temp[-1]):  # check for website list
-                print(True)
-                msg_statement.text = "Website opened"
+                msg_statement.text = "Website has been opened"
                 msg_statement.confidence = 1
                 return msg_statement
             else:
@@ -91,7 +90,7 @@ def query_websites(site_name):
     """
     # Variables
     website = ["facebook", "github", "linkedin", "youtube", "skynews", "outlook", "gmail", "google", "twitter",
-               "amazon", "reddit", "netflix", ""]
+               "amazon", "reddit", "netflix"]
     # Loop though array and try match the requested website:
     for site in website:
         if site == site_name:
