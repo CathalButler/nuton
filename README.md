@@ -69,7 +69,7 @@ Nuton is a bot that can interpret the voice commands you issue it. It does this 
         ```
         The command above that gets executed by a subprocess accepts a string of text which eSpeak will process and echo the text to speech. 
 
-* ### How Nuton opens application
+* ### How Nuton opens applications
     * Having the bot open applications was a feature from the beginning that was going to be implemented but it came with its problems. While researching the best methods on how to do it became clear that it's not that simple.
     One suggestion found here on [StackExchange](https://askubuntu.com/questions/433609/how-can-i-list-all-applications-installed-in-my-system-) where a command would list all the `.desktop` apps inside `usr/share/applications`, which did return a list of installed applications, but ultimately wasn't feasible as different Linux distributions don't all have `.desktop` shortcuts in that locations.
 
@@ -95,7 +95,7 @@ Nuton is a bot that can interpret the voice commands you issue it. It does this 
     *  Chatterbot has a wide array of corpus data files you can use to train the bot or you can specify your own one. In Nutons case the English corpus was used for training as well as some custom corpus data that works better with our custom logic adapters.
 
 * ### Gesture Implementation With Hardware
-    *  As the project statement states, *develop an application with natural user interacting* this was done by implementing a microphone into the program to record and analyise the users voice. This is done with [speech recognition through python](https://pypi.org/project/SpeechRecognition/), which analyzes the audio and returns the result as text. The text result would then be passed onto the Chatterbot to process and return a result.
+    *  As the project statement states, *develop an application with natural user interacting* this was done by implementing a microphone into the program to record and analyise the users voice. This is done with [speech recognition through python](https://pypi.org/project/SpeechRecognition/), which analyzes the audio and returns the result as text. The text result would then be passed onto the Chatterbot to process and return a result. The speech output from the bot itself could also be considered as a gesture, purely from an accessibitlity stand-point, which could be useful for those who have issues with sight.
 
 * ### Database
     * Chatterbot by default uses SQLite, and has a number of database adapters built into it for use. In our case with Nuton, we used a mongodb database cluster hosted by [mlab](https://mlab.com/), which is a JSON document-store, was used which allows the training data, and the requests and responses, to be stored.
@@ -134,6 +134,11 @@ This project was developed and tested on:
     * Python 3.8.2
     * [PyCharm 2019.3.4 (Professional Edition)](https://www.jetbrains.com/pycharm/)
       - Build #PY-193.6911.25, built on March 18, 2020
+
+* #### Testing Hardware
+    * Change to root directory of project and run:
+    * `$ python tests/audio_in_tests.py`
+    * This test will check that your microphone is functioning as expected for the application, and will also check against 2 files to fully verify correct speech recognition.
 * #### Test Cases 
     * Testing that was carried can be found here [nuton_test_cases.xlsx](/uploads/nuton_test_cases.xlsx)
 
