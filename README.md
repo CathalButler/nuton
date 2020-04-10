@@ -146,3 +146,16 @@ This project was developed and tested on:
 
  * **Morgan Reilly**
     - This project made for a nice combination of a challenging task and research of technology which I normally wouldn't have looked at. I feel the proect could have been scoped with a better scrutiny from the beginning as we had full choice of any operating system and technology but I made a poor descion to work with a Windows specific piece of hardware/software when both of us were running Linux on our machines. There was definitely a lot of time lost in the acquisation of hardware and I feel this time could have been put to better use. In terms of work, project management, and development skills, Cathal has been great. He is consistent and reliable, and I'm glad to have worked alongside him. I think we both adapted well given the situation and final timeframe. Ultimately I'm glad to have worked on a speech recognition project, and my only regret is that we hadn't done so from the beginning.
+
+### References
+ * https://chatterbot.readthedocs.io/en/stable/index.html
+ * https://github.com/Uberi/speech_recognition#readme
+ * http://espeak.sourceforge.net/
+ * https://realpython.com/python-speech-recognition/
+ * https://cmusphinx.github.io/wiki/tutorial/
+ * https://github.com/Uberi/speech_recognition/blob/master/reference/library-reference.rst
+ * https://stackoverflow.com/questions/31603555/unknown-pcm-cards-pcm-rear-pyaudio
+ * https://www.mongodb.com/
+ * https://alsa-project.org/wiki/Main_Page
+ * https://pypi.org/project/SpeechRecognition/
+ * https://chatterbot.readthedocs.io/en/stable/
