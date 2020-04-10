@@ -10,12 +10,13 @@ past four years*
 ### Table of contents
  * [The Project](#the-project)
  * [What is Nuton](#what-is-nuton)
- * [Commands]()
- * [Architecture]()
- * [Environment Setup]()
- * [Running The Application]()
- * [Testing & Development]()
- * [References]()
+ * [Commands](#commands)
+ * [Architecture](#architecture)
+ * [Environment Setup](#environment-setup----linux)
+ * [Running The Application](#running-the-application)
+ * [Testing & Development](#testing--development)
+ * [Conclusion & Recommendation](#conclusion--recommendation)
+ * [References](#references)
 
 ### The Project
 This project was initially meant to be a Kinect game but was changed due to hardware limitations after the outbreak of COVID-19.
@@ -35,7 +36,7 @@ and so on.
 ### Commands
   * Lunching applications - *"launch chrome"*
   * Lunching a website - *"open twitter"*
-  * Making notes - *"make a note"* followed by what you want to take note of *"I have a meeting tuesday"*
+  * Making notes - *"make a note"* followed by what you want to take note of *"I have a meeting on tuesday"*
     - Replying a note - *"read my note"*
   * Temperature status - *"what temperature is it in Galway"*
   * Time - *"what time is it?"*
@@ -86,13 +87,13 @@ and so on.
     applications but wasn't feasible as different Linux distributions don't all have `.desktop` shortcuts in that locations.
    
    * Another approach that was looked into was hoping that an environment path was declared for the application so by
-   just entering the applications name in a terminal it would lunch, again this was not feasible as not all Linux
+   just entering the applications name in a terminal it would launch, again this was not feasible as not all Linux
    systems would have the paths set up for all applications.
    
    * The method that was implemented but could be improved on was to check on both operating systems that the application
    was developed on where the application binary file was located, which in our luck were the same directory `/usr/bin/`.
    After discovering this the `application_location.txt` file was populated with the name and directory location of the 
-   binary where python could now make a subprocess call to lunch that application when a user requested an application
+   binary where python could now make a subprocess call to launch that application when a user requested an application
    to be opened. The only downside is that the file needs to be manually updated so, for now, the most popular applications
    you may find on an OS were added to the file to allow the user open them when they command the bot.
         - Support applications to open subject to work if installed & a list of websites that can be opened.
