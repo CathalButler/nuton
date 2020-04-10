@@ -41,7 +41,6 @@ class ApplicationAdapter(LogicAdapter):
 
         # Post pressing of the statement, store the last word from the statement
         temp = statement.text.split()
-        print(temp[-1])
 
         results = read_command_file()  # Read file
         apps = query_dictionary(results, temp[-1])  # query
@@ -94,7 +93,6 @@ def query_websites(site_name):
     # Loop though array and try match the requested website:
     for site in website:
         if site == site_name:
-            print(site)
             # Open webpage in browser
             webbrowser.open(site + '.com')
             return True

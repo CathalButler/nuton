@@ -21,6 +21,9 @@
 you and this is an opportunity to combine a lot of technology that you have worked with over the
 past four years*
 
+#### Screencast
+ * [Project Screencast](https://web.microsoftstream.com/video/109592a5-4c6f-4de7-9bfe-18377b3710cd)
+
 #### About The Project
 The aim of this project was to create a gesture based application. This had initially intedended to be a basic arcade game,([similar to this](https://elgoog.im/t-rex/)), built through Unity with use of Microsofts Kinect, but had to be changed due to the hardware limitations and social restrictions after the outbreak of COVID-19. With the penultimate timeframe for the project looming we opted to create a voice controlled desktop application which was terminal operated. It incorporates the following technolgies:
    * [Chatterbot](https://chatterbot.readthedocs.io/en/stable/) | Machine Learning, conversational dialog engine.
