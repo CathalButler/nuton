@@ -8,7 +8,7 @@ dnspython==1.16.0
 idna==2.9
 mathparse==0.1.2
 murmurhash==1.0.2
-nltk==3.4.5
+nltk==3.6.6
 numpy==1.18.2
 Pint==0.11
 plac==0.9.6
